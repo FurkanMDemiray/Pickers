@@ -7,7 +7,7 @@ export default function RootLayout() {
         <NativeTabs.Trigger.Label>Height</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon md="height" />
       </NativeTabs.Trigger>
-      <NativeTabs.Trigger name="heightPicker">
+      <NativeTabs.Trigger name="weightPicker">
         <NativeTabs.Trigger.Label>Weight</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon md="weight" />
       </NativeTabs.Trigger>
