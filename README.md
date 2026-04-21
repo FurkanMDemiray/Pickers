@@ -1,56 +1,73 @@
-# Welcome to your Expo app 👋
+# Pickers R&D (React Native + Expo)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This project is an R&D playground for building mobile pickers.
 
-## Get started
+Main finding:
+- There are very limited ready-made libraries for **weight picker**, **age picker**, and highly **customizable picker** use cases.
+- `react-native-ruler-picker` works for ruler-style interaction.
+- The most flexible and future-proof approach is building custom pickers with **`react-native-reanimated` + `FlatList`**.
 
-1. Install dependencies
+## Project Goal
 
-   ```bash
-   npm install
-   ```
+- Research picker UX patterns for health/body inputs.
+- Build reusable picker components for `height`, `weight`, and `age`.
+- Keep UI smooth with 60 FPS scroll/animation behavior.
 
-2. Start the app
+## Current Idea
 
-   ```bash
-   npx expo start
-   ```
+Use this architecture:
+- **Data layer:** generate picker items (numbers, units, labels).
+- **Scroll layer:** `FlatList` with snapping (`snapToInterval`) and center alignment.
+- **Animation layer:** `react-native-reanimated` for active-item scale/opacity/parallax.
+- **Selection layer:** derive selected value from scroll offset and item height.
 
-In the output, you'll find options to open the app in a
+## Picker Types (Short Notes)
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- **Height picker**
+  - Supports `cm` and optionally `ft/in`.
+  - Usually range: `100-230 cm`.
+  - Can be one wheel (cm) or two wheels (ft + in).
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+- **Weight picker**
+  - Supports `kg` and optionally `lb`.
+  - Usually range: `30-250 kg`.
+  - Can include decimals (e.g. `70.5 kg`) if needed.
 
-## Get a fresh project
+- **Age picker**
+  - Numeric age selection (e.g. `1-100`).
+  - Simple wheel/ruler UI is enough.
+  - Optional validation for app-specific min/max age.
 
-When you're ready, run:
+## How to Build Them (Short)
+
+- Define `ITEM_HEIGHT`, center indicator position, and value range.
+- Render values in `FlatList` with top/bottom spacer items so center selection works.
+- Use `onScroll` + Reanimated shared value to track scroll offset.
+- Convert `offsetY` to selected index with `Math.round(offsetY / ITEM_HEIGHT)`.
+- Highlight center item using animated styles (scale, opacity, color).
+- Snap accurately with `snapToInterval={ITEM_HEIGHT}` and `decelerationRate="fast"`.
+- Expose `value` + `onChange` props to make picker components reusable.
+
+## Suggested Reusable API
+
+Each picker component can share a common API:
+- `min`, `max`, `step`
+- `unit` (`cm`, `kg`, `lb`, etc.)
+- `initialValue`
+- `onValueChange(value)`
+- `labelFormatter(value)`
+
+This keeps all pickers consistent while still allowing custom behavior.
+
+## Run the Project
 
 ```bash
-npm run reset-project
+npm install
+npx expo start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Why Reanimated + FlatList
 
-### Other setup steps
-
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- Full control over visuals and interaction.
+- Easy to customize for different product styles.
+- Better long-term maintainability than relying on limited third-party picker packages.
