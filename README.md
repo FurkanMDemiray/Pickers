@@ -27,8 +27,10 @@ Use this architecture:
   - Supports `cm` and optionally `ft/in`.
   - Usually range: `100-230 cm`.
   - Can be one wheel (cm) or two wheels (ft + in).
+  - There is one library for this one "react-native-ruler-picker". It is not customizable.
 
 - **Weight picker**
+
   - Supports `kg` and optionally `lb`.
   - Usually range: `30-250 kg`.
   - Can include decimals (e.g. `70.5 kg`) if needed.
@@ -71,3 +73,7 @@ npx expo start
 - Full control over visuals and interaction.
 - Easy to customize for different product styles.
 - Better long-term maintainability than relying on limited third-party picker packages.
+
+## DEMO
+|| [HeightPicker.webm](https://github.com/user-attachments/assets/89365ea5-7ab3-4aea-accc-f8a4f7b00d9d) || [WeightPicker.webm](https://github.com/user-attachments/assets/42a853fe-6ea1-4b75-9b2c-9a1210748ff9) || [AgePicker.webm](https://github.com/user-attachments/assets/45c0328d-a36d-4727-8b46-d8ff6726bcd1)
+
