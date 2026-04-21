@@ -27,18 +27,23 @@ Use this architecture:
   - Supports `cm` and optionally `ft/in`.
   - Usually range: `100-230 cm`.
   - Can be one wheel (cm) or two wheels (ft + in).
-  - There is one library for this one "react-native-ruler-picker". It is not customizable.
+  - There is one library for this one [Ruler Picker](react-native-ruler-picker). It is not customizable.
 
 - **Weight picker**
 
   - Supports `kg` and optionally `lb`.
   - Usually range: `30-250 kg`.
   - Can include decimals (e.g. `70.5 kg`) if needed.
+  - No library found.
 
 - **Age picker**
   - Numeric age selection (e.g. `1-100`).
   - Simple wheel/ruler UI is enough.
   - Optional validation for app-specific min/max age.
+  - No library found.
+
+- **Useful Library**
+  - [Wheel Picker](https://github.com/quidone/react-native-wheel-picker)
 
 ## How to Build Them (Short)
 
